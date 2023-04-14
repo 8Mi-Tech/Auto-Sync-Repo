@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.AUTO_SYNC_GH_KEY }}
-          repository: 8MiYile/${{ matrix.repo }}
+          repository: 8Mi-Tech/${{ matrix.repo }}
       -
         name: Set Sync Env
         run: |
@@ -60,4 +60,4 @@ jobs:
         with:
           github_token: ${{ secrets.AUTO_SYNC_GH_KEY }}
           branch: ${{ github.ref }}
-          repository: 8MiYile/${{ matrix.repo }}
+          repository: 8Mi-Tech/${{ matrix.repo }}
