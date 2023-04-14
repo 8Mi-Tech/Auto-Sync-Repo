@@ -39,14 +39,15 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           rm -rf *
-      -
-        name: Get 8Mi_Yile's Repo
-        uses: wei/wget@v1.1.1
-        with:
-          args: -O Yile.zip https://github.com/8MiYile/${{ matrix.repo }}/archive/refs/heads/${{ matrix.branch }}.zip
+      #-
+        #name: Get 8Mi_Yile's Repo
+        #uses: wei/wget@v1.1.1
+        #with:
+          #args: 
       -
         name: Sync 8Mi_Yile's Repo
         run: |
+          wget -O Yile.zip https://github.com/8MiYile/${{ matrix.repo }}/archive/refs/heads/${{ matrix.branch }}.zip
           echo "::group::Unzip source"
           unzip Yile.zip
           echo "::group::Move to this repo"
@@ -55,7 +56,7 @@ jobs:
           rm Yile.zip
           rm -rfd ${{ matrix.repo }}-$(git branch -l | sed 's/* //')
           echo "::group::Create Git Commit"
-          git add *
+          git add .
           git commit -a -m "this commit from 8Mi_Yile's repo" 2>%1
       -
         name: Push 8Mi_Yile's Repo
