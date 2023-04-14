@@ -18,7 +18,7 @@ jobs:
         include:
           -  
             repo: MCCustomSkinLoader
-            branch: 14-develop
+            branch: 15-develop
           -
             repo: CefDetectorX
             branch: master
