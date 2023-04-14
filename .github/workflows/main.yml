@@ -60,5 +60,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.AUTO_SYNC_GH_KEY }}
-          branch: ${{ github.ref }}
+          branch: refs/heads/${{ matrix.branch }}
           repository: 8Mi-Tech/${{ matrix.repo }}
