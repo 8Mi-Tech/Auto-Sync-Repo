@@ -1,7 +1,9 @@
 name: 8Mi Auto Sync (Multi Repo)
 # It works fine, the next build is solved by the machine automatically
 on: 
-  workflow_dispatch:
+  # 需要调试的时候，再打开这个功能
+  #workflow_dispatch:
+  # 定时器 默认
   schedule:
     - cron: '* 0/1 * * *'
   
