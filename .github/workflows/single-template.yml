@@ -13,8 +13,8 @@ env:
   TZ: Asia/Shanghai
 
 jobs:
-  checking-repo-env:
-    name: Checking Repo Env
+  sync-task:
+    name: Sync Task
     if: ${{ vars.VAR_8MI_TECH_FORK_SYNC_BOOLEAN == 'true' }}
     runs-on: ubuntu-latest
     steps:
@@ -30,12 +30,12 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
       -
-        name: Get 8Mi_Yile's Repo
+        name: Get Upstream Repo
         uses: wei/wget@v1.1.1
         with:
           args: -O Yile.zip https://github.com/8MiYile/$(echo $GITHUB_REPOSITORY|awk -F/ '{printf $2}')/archive/${{ github.ref }}.zip
       -
-        name: Sync 8Mi_Yile's Repo
+        name: Sync Repo
         run: |
           echo "::group::Unzip source"
           unzip Yile.zip
@@ -48,7 +48,7 @@ jobs:
           git add *
           git commit -a -m "this commit from 8Mi_Yile's repo" 2>%1
       -
-        name: Push 8Mi_Yile's Repo
+        name: Push / Apply Repo
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.AUTO_SYNC_GH_KEY }}
