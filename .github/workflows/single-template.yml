@@ -1,8 +1,11 @@
 name: 8Mi Auto Sync (Single Repo)
 # It works fine, the next build is solved by the machine automatically
 on:
-  gollum: #本行在保存到自己项目的时候要记得删除
+  # 在保存到自己项目的时候要记得删除 gollum
+  gollum: 
+  # 需要调试的时候，再打开这个功能
   #workflow_dispatch:
+  # 定时器
   #schedule:
   #  - cron: '* 0/1 * * *'
   
