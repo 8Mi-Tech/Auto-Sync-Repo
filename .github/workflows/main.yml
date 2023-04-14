@@ -11,8 +11,7 @@ env:
   TZ: Asia/Shanghai
 
 jobs:
-  checking-repo-env:
-    name: ${{ matrix.repo }} / ${{ matrix.branch }}
+  sync-task:
     if: ${{ vars.VAR_8MI_TECH_FORK_SYNC_BOOLEAN == 'true' }}
     continue-on-error: true
     runs-on: ubuntu-latest
@@ -25,7 +24,7 @@ jobs:
           -
             repo: CefDetectorX
             branch: master
-
+    name: ${{ matrix.repo }} / ${{ matrix.branch }}
     steps:
       - 
         name: Checkout
