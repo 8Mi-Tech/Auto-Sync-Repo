@@ -1,7 +1,7 @@
 # 8Mi-Tech / Auto-Sync-Repo
 
 这是一个自动同步 & 减少Commit数量的神器<br>
-前置：[Token V1](https://github.com/settings/tokens/new) 仅选择`workflow`
+前置：[Token V1](https://github.com/settings/tokens/new) 仅选择`workflow`<br>粘贴到`https://github.com/<your_org>/<your_repo>/settings/secrets/actions`
 
 Single版本工作原理 (以CefDetectorX举例)<br>
 A = 原作Repo | B = 组织Fork的Repo | C = 用户Fork的Repo
