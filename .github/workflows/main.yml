@@ -33,30 +33,23 @@ jobs:
           token: ${{ secrets.AUTO_SYNC_GH_KEY }}
           repository: 8Mi-Tech/${{ matrix.repo }}
       -
-        name: Set Sync Env
+        name: Sync 8Mi_Yile's Repo
         run: |
           echo "::group::set github-actions bot"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          rm -rf *
-      #-
-        #name: Get 8Mi_Yile's Repo
-        #uses: wei/wget@v1.1.1
-        #with:
-          #args: 
-      -
-        name: Sync 8Mi_Yile's Repo
-        run: |
+          rm -rfv *
+          echo "::group::Downloading Zip source"
           wget -O Yile.zip https://github.com/8MiYile/${{ matrix.repo }}/archive/refs/heads/${{ matrix.branch }}.zip
           echo "::group::Unzip source"
           unzip Yile.zip
           echo "::group::Move to this repo"
           rsync -a ${{ matrix.repo }}-$(git branch -l | sed 's/* //')/* ${{ matrix.repo }}-$(git branch -l | sed 's/* //')/.* ./
           echo "::group::Remove Download's File"
-          rm Yile.zip
-          rm -rfd ${{ matrix.repo }}-$(git branch -l | sed 's/* //')
+          rm -v Yile.zip
+          rm -rfdv ${{ matrix.repo }}-$(git branch -l | sed 's/* //')
           echo "::group::Create Git Commit"
-          git add .
+          git add *
           git commit -a -m "this commit from 8Mi_Yile's repo" 2>%1
       -
         name: Push 8Mi_Yile's Repo
