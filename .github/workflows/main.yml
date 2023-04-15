@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include:  $(curl https://github.com/${{ github.repository }}/raw/main/${{ inputs.task-list-file }})
+        include: $(curl https://github.com/${{ github.repository }}/raw/main/${{ inputs.task-list-file }})
     name: ${{ matrix.repo }} / ${{ matrix.branch }}
     steps:
       - 
