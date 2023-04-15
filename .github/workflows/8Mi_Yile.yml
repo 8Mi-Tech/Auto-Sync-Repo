@@ -7,11 +7,14 @@ env:
 jobs:
   auto-sync-repo-single:
     name: Auto Sync Task List
+    uses: ./.github/workflows/main.yml
     with:
-      task_list:
-        - repo: MCCustomSkinLoader
-           branch: 15-develop
-           from_org_user: ${{ env.org_user }}
-        - repo: CefDetectorX
-           branch: master
-           from_org_user: ${{ env.org_user }}
+      task-list:
+        - 
+          repo: MCCustomSkinLoader
+          branch: 15-develop
+          from_org_user: ${{ env.org_user }}
+        -
+          repo: CefDetectorX
+          branch: master
+          from_org_user: ${{ env.org_user }}
