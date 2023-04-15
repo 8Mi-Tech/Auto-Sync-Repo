@@ -6,10 +6,6 @@ on:
       task-list-file:
         required: true
         type: string
-    outputs:
-       task-list: # id of the output
-         description: task list
-         value: ${{ steps.get-task-list.outputs.result }}
   # 需要调试的时候，再打开这个功能
   #workflow_dispatch:
   # 定时器 默认
@@ -18,27 +14,29 @@ on:
   
 env:
   TZ: Asia/Shanghai
-  task-list: ${{ jobs.Initialization.steps.get-task-list.outputs.result }}
 
 jobs:
-  Initialization:
+  Init:
     runs-on: ubuntu-latest
-    name: Initialization Task List
+    name: Initialization 
+    outputs:
+      result: ${{ steps.list.outputs.result }}
     steps:
       - # ${{ steps.get-task-list.outputs.result }}
         name: Get Task List
-        id: get-task-list
+        id: list
         run: echo "result=$(echo  $(curl https://github.com/${{ github.repository }}/raw/main/${{ inputs.task-list-file }}) )" >> $GITHUB_OUTPUT
         shell: bash
+    
   Sync-Task:
     # if仅仅是防止有人放在非Auto-Sync-Repo仓库内使用
     # if: ${{ vars.VAR_8MI_TECH_FORK_SYNC_BOOLEAN == 'true' }}
-    needs: Initialization
+    needs: Init
     continue-on-error: true
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include: ${{ env.task-list }}
+        include: ${{needs.Init.outputs.result}}
     name: ${{ matrix.repo }} / ${{ matrix.branch }}
     steps:
       - 
