@@ -33,7 +33,7 @@ jobs:
       - # ${{ steps.get-task-list.outputs.result }}
         id: set-matrix
         run: |
-          echo "matrix="$(cat ${{ inputs.task-list-file }}))" " >> $GITHUB_OUTPUT
+          echo "matrix="$(cat ${{ inputs.task-list-file }})" " >> $GITHUB_OUTPUT
     
   Sync-Task:
     # if仅仅是防止有人放在非Auto-Sync-Repo仓库内使用
