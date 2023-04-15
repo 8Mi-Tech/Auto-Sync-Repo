@@ -25,7 +25,7 @@ jobs:
       - # ${{ steps.get-task-list.outputs.result }}
         name: Get Task List
         id: list
-        run: echo "result=$(echo  $(curl https://github.com/${{ github.repository }}/raw/main/${{ inputs.task-list-file }}) )" >> $GITHUB_OUTPUT
+        run: 'echo "result=$(echo  "$(curl https://github.com/${{ github.repository }}/raw/main/${{ inputs.task-list-file }})" )" >> $GITHUB_OUTPUT'
         shell: bash
     
   Sync-Task:
