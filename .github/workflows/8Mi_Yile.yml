@@ -1,8 +1,6 @@
 on: workflow_dispatch
 #name和env的环境针对的是
 name: 8Mi_Yile
-env:  
-  org_user: 8MiYile
   
 jobs:
   auto-sync-repo-single:
@@ -11,3 +9,4 @@ jobs:
     uses: ./.github/workflows/main.yml
     with:
       task-list-file: .github/list/8Mi_Yile.list
+      org_user: 8MiYile
