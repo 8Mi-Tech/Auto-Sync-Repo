@@ -1,4 +1,7 @@
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+  schedule:
+   - cron: '* 0/1 * * *'
 #name和env的环境针对的是
 name: 8Mi_Yile
   
