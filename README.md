@@ -6,4 +6,4 @@
 
 工作原理 （建议自己看main.yml 通俗易懂）<br>
 先点击生成模,选择挂在组织<br>
-然后[点我](./actions/workflows/generate.yml),
+然后[点我](../../actions/workflows/generate.yml),
