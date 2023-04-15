@@ -32,6 +32,7 @@ jobs:
         with:
           token: ${{ secrets.AUTO_SYNC_GH_KEY }}
           repository: 8Mi-Tech/${{ matrix.repo }}
+          path: ${{ matrix.repo }}
       -
         name: Sync 8Mi_Yile Repo #rm -rfv * .* !(.git)
         run: |
@@ -47,7 +48,6 @@ jobs:
           rsync -avz --exclude=".git" --delete ${{ matrix.repo }}-${{ matrix.branch }}/ ${{ matrix.repo }}/
           echo "::group::Remove Download's File"
           rm -v Yile.zip
-          ls -lh
           rm -rfdv ${{ matrix.repo }}-${{ matrix.branch }}
           echo "::group::Create Git Commit"
           cd ${{ matrix.repo }}
