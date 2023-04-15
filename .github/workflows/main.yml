@@ -11,6 +11,9 @@ on:
       task-list-file:
         required: true
         type: string
+      org-user:
+        required: false
+        type: string
   # 需要调试的时候，再打开这个功能
   #workflow_dispatch:
   # 定时器 默认
