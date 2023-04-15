@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJSON(needs.Init.outputs.result) }}
-    name: ${{ matrix.repo }} / ${{ matrix.branch }}
+    name: ${{ matrix.repo }} (${{ matrix.branch }})
     steps:
       - 
         name: Checkout
