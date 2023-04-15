@@ -1,0 +1,17 @@
+on: workflow_dispatch
+#name和env的环境针对的是
+name: 8Mi_Yile
+env:  
+  org_user: 8MiYile
+  
+jobs:
+  auto-sync-repo-single:
+    name: Auto Sync Task List
+    with:
+      task_list:
+        - repo: MCCustomSkinLoader
+           branch: 15-develop
+           from_org_user: ${{ env.org_user }}
+        - repo: CefDetectorX
+           branch: master
+           from_org_user: ${{ env.org_user }}
