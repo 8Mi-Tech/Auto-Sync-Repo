@@ -61,3 +61,4 @@ jobs:
           github_token: ${{ secrets.AUTO_SYNC_GH_KEY }}
           branch: refs/heads/${{ matrix.branch }}
           repository: 8Mi-Tech/${{ matrix.repo }}
+          directory: ${{ matrix.repo }}
