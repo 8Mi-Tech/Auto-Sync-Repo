@@ -12,16 +12,19 @@ env:
 
 jobs:
   sync-task:
-    if: ${{ vars.VAR_8MI_TECH_FORK_SYNC_BOOLEAN == 'true' }}
+    # if仅仅是防止有人放在非Auto-Sync-Repo仓库内使用
+    # if: ${{ vars.VAR_8MI_TECH_FORK_SYNC_BOOLEAN == 'true' }}
     continue-on-error: true
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include:
+        include:  #from哪个仓库
           -  
+            org_user: 8MiYile
             repo: MCCustomSkinLoader
             branch: 15-develop
           -
+            org_user: 8MiYile
             repo: CefDetectorX
             branch: master
     name: ${{ matrix.repo }} / ${{ matrix.branch }}
@@ -31,10 +34,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.AUTO_SYNC_GH_KEY }}
-          repository: 8Mi-Tech/${{ matrix.repo }}
+          repository: ${{ github.repository_owner }}/${{ matrix.repo }}
           path: ${{ matrix.repo }}
       -
-        name: Sync 8Mi_Yile Repo #rm -rfv * .* !(.git)
+        name: Sync Repo
         run: |
           echo "::group::Set github-actions bot"
           cd ${{ matrix.repo }}
@@ -42,7 +45,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           echo "::group::Downloading Zip source"
           cd -
-          wget -O Yile.zip https://github.com/8MiYile/${{ matrix.repo }}/archive/refs/heads/${{ matrix.branch }}.zip
+          wget -O Yile.zip https://github.com/${{ matrix.org_user }}/${{ matrix.repo }}/archive/refs/heads/${{ matrix.branch }}.zip
           echo "::group::Unzip source"
           unzip Yile.zip
           echo "::group::Move to this repo"
@@ -53,12 +56,12 @@ jobs:
           echo "::group::Create Git Commit"
           cd -
           git add *
-          git commit -a -m "this commit from 8Mi_Yile's repo" 2>%1
+          git commit -a -m "Auto Sync From" 2>%1
       -
-        name: Push 8Mi_Yile's Repo
+        name: Push
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.AUTO_SYNC_GH_KEY }}
           branch: refs/heads/${{ matrix.branch }}
-          repository: 8Mi-Tech/${{ matrix.repo }}
+          repository: ${{ github.repository_owner }}/${{ matrix.repo }}
           directory: ${{ matrix.repo }}
