@@ -3,12 +3,12 @@
     {
       "repo": "MCCustomSkinLoader",
       "branch": "15-develop",
-      "from_org_user": "${{ inputs.org_user }}"
+      "from_org_user": "8MiYile"
     },
     {
       "repo": "CefDetectorX",
       "branch": "master",
-      "from_org_user": "${{ inputs.org_user }}"
+      "from_org_user": "8MiYile"
     }
   ]
 }
