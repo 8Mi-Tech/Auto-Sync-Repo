@@ -37,9 +37,11 @@ jobs:
         name: Sync 8Mi_Yile Repo #rm -rfv * .* !(.git)
         run: |
           echo "::group::Set github-actions bot"
+          cd ${{ matrix.repo }}
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           echo "::group::Downloading Zip source"
+          cd -
           wget -O Yile.zip https://github.com/8MiYile/${{ matrix.repo }}/archive/refs/heads/${{ matrix.branch }}.zip
           echo "::group::Unzip source"
           unzip Yile.zip
@@ -49,7 +51,7 @@ jobs:
           rm -v Yile.zip
           rm -rfdv ${{ matrix.repo }}-${{ matrix.branch }}
           echo "::group::Create Git Commit"
-          cd ${{ matrix.repo }}
+          cd -
           git add *
           git commit -a -m "this commit from 8Mi_Yile's repo" 2>%1
       -
