@@ -4,7 +4,7 @@ name: 8Mi_Yile
   
 jobs:
   auto-sync-repo-single:
-    name: Auto Sync Task List
+    name: List
     secrets: inherit
     uses: ./.github/workflows/main.yml
     with:
