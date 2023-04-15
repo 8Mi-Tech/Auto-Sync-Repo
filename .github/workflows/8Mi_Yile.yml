@@ -9,4 +9,4 @@ jobs:
     name: Auto Sync Task List
     uses: ./.github/workflows/main.yml
     with:
-      task-list: ./list/8Mi_Yile.list
+      task-list: .github/list/8Mi_Yile.list
