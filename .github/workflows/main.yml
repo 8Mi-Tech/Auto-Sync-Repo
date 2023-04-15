@@ -56,7 +56,7 @@ jobs:
           echo "::group::Create Git Commit"
           cd -
           git add *
-          git commit -a -m "Auto Sync From" 2>%1
+          git commit -a -m "Auto Sync From"${{ matrix.org_name }}
       -
         name: Push
         uses: ad-m/github-push-action@master
