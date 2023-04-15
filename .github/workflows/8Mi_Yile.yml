@@ -9,12 +9,4 @@ jobs:
     name: Auto Sync Task List
     uses: ./.github/workflows/main.yml
     with:
-      task-list:
-        - 
-          repo: MCCustomSkinLoader
-          branch: 15-develop
-          from_org_user: ${{ env.org_user }}
-        -
-          repo: CefDetectorX
-          branch: master
-          from_org_user: ${{ env.org_user }}
+      task-list: ./list/8Mi_Yile.list
