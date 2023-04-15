@@ -76,7 +76,7 @@ jobs:
           rm -rfdv ${{ matrix.repo }}-${{ matrix.branch }}
           echo "::group::Create Git Commit"
           cd -
-          git add *
+          git add -A
           git commit -a -m "Auto Sync From"${{ matrix.org_name }}
       -
         name: Push
