@@ -69,8 +69,6 @@ jobs:
           unzip Yile.zip
           echo "::group::Move to Target repo"
           rsync -avz --exclude=".git" --delete ${{ matrix.repo }}-${{ matrix.branch }}/ ${{ matrix.repo }}/
-          echo "::group::Move to Target repo"
-          rsync -avz  ${{ matrix.repo }}-${{ matrix.branch }}/* ${{ matrix.repo }}/
           echo "::group::Remove Download's File"
           rm -v Yile.zip
           rm -rfdv ${{ matrix.repo }}-${{ matrix.branch }}
