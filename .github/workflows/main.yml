@@ -40,7 +40,6 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           echo "::group::Downloading Zip source"
-          cd ..
           wget -O Yile.zip https://github.com/8MiYile/${{ matrix.repo }}/archive/refs/heads/${{ matrix.branch }}.zip
           echo "::group::Unzip source"
           unzip Yile.zip
