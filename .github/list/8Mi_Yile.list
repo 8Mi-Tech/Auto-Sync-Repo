@@ -1,0 +1,8 @@
+- 
+repo: MCCustomSkinLoader
+branch: 15-develop
+from_org_user: ${{ env.org_user }}
+-
+repo: CefDetectorX
+branch: master
+from_org_user: ${{ env.org_user }}
