@@ -9,4 +9,3 @@ jobs:
     uses: ./.github/workflows/main.yml
     with:
       task-list-file: .github/list/8Mi_Yile.list
-      org-user: 8MiYile
