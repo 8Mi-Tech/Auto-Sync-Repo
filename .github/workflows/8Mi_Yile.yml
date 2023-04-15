@@ -7,6 +7,7 @@ env:
 jobs:
   auto-sync-repo-single:
     name: Auto Sync Task List
+    secrets: inherit
     uses: ./.github/workflows/main.yml
     with:
       task-list-file: .github/list/8Mi_Yile.list
