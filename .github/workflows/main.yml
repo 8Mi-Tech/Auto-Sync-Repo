@@ -25,13 +25,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Initialization 
     outputs:
-      result: ${{ steps.list.outputs.result }}
+      result: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - # ${{ steps.get-task-list.outputs.result }}
-        name: Get Task List
-        id: list
+        id: set-matrix
         run: 'echo "result=$(echo  "$(curl https://github.com/${{ github.repository }}/raw/main/${{ inputs.task-list-file }})" )" >> $GITHUB_OUTPUT'
-        shell: bash
     
   Sync-Task:
     # if仅仅是防止有人放在非Auto-Sync-Repo仓库内使用
@@ -40,7 +38,7 @@ jobs:
     continue-on-error: true
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{needs.Init.outputs.result}}
+      matrix: ${{ fromJSON(needs.Init.outputs.result) }}
     name: ${{ matrix.repo }} / ${{ matrix.branch }}
     steps:
       - 
