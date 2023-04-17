@@ -1,5 +1,3 @@
-name: 8Mi Auto Sync (Multi Repo)
-# It works fine, the next build is solved by the machine automatically
 on: 
   #workflow_dispatch:
     #inputs:
@@ -75,7 +73,7 @@ jobs:
           echo "::group::Create Git Commit"
           cd -
           git add -A
-          git commit -a -m "Auto Sync From"${{ matrix.org_name }}
+          git commit -a -m "Auto Sync From"${{ matrix.from_org_user }}"/"${{ matrix.branch }}.zip
       -
         name: Push
         uses: ad-m/github-push-action@master
