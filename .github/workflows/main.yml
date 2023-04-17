@@ -74,7 +74,7 @@ jobs:
           echo "::group::Create Git Commit"
           cd -
           git add -A
-          git commit -a -m "Auto Sync From"${{ matrix.from_org_user }}"/"${{ matrix.branch }}.zip
+          git commit -a -m "Auto Sync From "${{ matrix.from_org_user }}" / "${{ matrix.branch }}
       -
         name: Push
         uses: ad-m/github-push-action@master
