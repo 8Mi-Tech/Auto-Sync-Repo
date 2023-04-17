@@ -1,3 +1,4 @@
+name: Main core (only called)
 on: 
   #workflow_dispatch:
     #inputs:
