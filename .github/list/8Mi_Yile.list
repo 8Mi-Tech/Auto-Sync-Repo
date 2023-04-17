@@ -9,6 +9,11 @@
       "repo": "CefDetectorX",
       "branch": "master",
       "from_org_user": "8MiYile"
+    },
+    {
+      "repo": "OpenWRT-LuCI",
+      "branch": "master",
+      "from_org_user": "8MiYile"
     }
   ]
 }
