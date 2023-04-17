@@ -63,18 +63,18 @@ jobs:
           git config --local user.name "github-actions[bot]"
           echo "::group::Downloading Zip source"
           cd -
-          wget -O Yile.zip https://github.com/${{ matrix.from_org_user }}/${{ matrix.repo }}/archive/refs/heads/${{ matrix.branch }}.zip
+          wget -O source.zip https://github.com/${{ matrix.from_org_user }}/${{ matrix.repo }}/archive/refs/heads/${{ matrix.branch }}.zip
           echo "::group::Unzip source"
-          unzip Yile.zip
+          unzip source.zip
           echo "::group::Move to Target repo"
           rsync -avz --exclude=".git" --delete ${{ matrix.repo }}-${{ matrix.branch }}/ ${{ matrix.repo }}/
           echo "::group::Remove Download's File"
-          rm -v Yile.zip
+          rm -v source.zip
           rm -rfdv ${{ matrix.repo }}-${{ matrix.branch }}
           echo "::group::Create Git Commit"
           cd -
           git add -A
-          git commit -a -m "Auto Sync From "${{ matrix.from_org_user }}" / "${{ matrix.branch }}
+          git commit -a -m "Auto Sync From "${{ matrix.from_org_user }}" / "${{ matrix.repo }}" / "${{ matrix.branch }}
       -
         name: Push
         uses: ad-m/github-push-action@master
