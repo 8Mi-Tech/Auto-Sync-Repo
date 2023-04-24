@@ -1,0 +1,72 @@
+name: CI Test Build
+on: 
+  workflow_dispatch:
+    inputs:
+      apt-upgrade-channel:
+        description: 'APT额外更新通道'
+        required: true
+        type: choice
+        default: testing
+        options:
+        - unstable
+        - testing
+      dns-server:
+        description: 'DNS服务器'
+        required: false
+        type: string
+jobs:
+  deepin-beige:
+    runs-on: ubuntu-latest
+    container:
+      image: linuxdeepin/beige:base
+    steps:
+      - name: Deepin Linux installation is complete
+        run: |
+          # Deepin Linux 安装完毕
+      - uses: actions/checkout@v3
+        name: Checkout Git Repository
+        with:
+          submodules: true
+          repository: "obsproject/obs-studio"
+          ref: "refs/tags/29.0.2"
+      - name: Set DNS Server
+        if: ${{ inputs.dns-server }}
+        run: |
+          # 首行不给看,要看指令的自己点展开
+          # 他妈的还要另外设置DNS真的是醉了
+          # 哦 内置地址不能在 GitHub 使用, 那没事了
+          echo "nameserver ${{ inputs.dns-server }}" > /etc/resolv.conf
+      - name: Set APT Upgrade Channel is ${{ inputs.apt-upgrade-channel }}
+        run: |
+          # 首行不给看,要看指令的自己点展开
+          echo "deb https://community-packages.deepin.com/beige/ beige main commercial community" > /etc/apt/sources.list
+          case ${{ inputs.apt-upgrade-channel }} in
+            "stable" ) url="$(echo "deb https://community-packages.deepin.com/beige/ beige main commercial community")" ;;
+            "unstable" ) url="$(echo "deb [trusted=yes] https://ci.deepin.com/repo/topics/beige/unstable/ unstable main")" ;;
+            "testing" ) url="$(echo "deb [trusted=yes] https://ci.deepin.com/repo/release/beige/ testing main")" ;;
+          esac  
+          echo $url >> /etc/apt/sources.list
+          echo "deb [trusted=yes] https://ci.deepin.com/repo/obs/deepin:/Develop:/community/deepin_develop/ ./" >> /etc/apt/sources.list
+      - name: Preparing Dependencies in APT
+        shell: bash
+        run: |
+          # 首行不给看,要看指令的自己点展开
+          echo "::group::APT Detect"
+          apt update
+          apt dist-upgrade -y
+          echo "::group::Build system dependencies"
+          apt install -y cmake ninja-build pkg-config clang clang-format build-essential curl ccache git
+          echo "::group::OBS dependencies（core）"
+          apt install -y libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libswresample-dev libswscale-dev libx264-dev libcurl4-openssl-dev libmbedtls-dev libgl1-mesa-dev libjansson-dev libluajit-5.1-dev python3-dev libx11-dev libxcb-randr0-dev libxcb-shm0-dev libxcb-xinerama0-dev libxcb-composite0-dev libxcomposite-dev libxinerama-dev libxcb1-dev libx11-xcb-dev libxcb-xfixes0-dev swig libcmocka-dev libxss-dev libglvnd-dev libgles2-mesa libgles2-mesa-dev libwayland-dev librist-dev libsrt-openssl-dev libpci-dev
+          echo "::group::OBS dependencies（Qt6 UI）"
+          apt install -y qt6-base-dev qt6-base-private-dev libqt6svg6-dev qt6-wayland qt6-image-formats-plugins
+          echo "::group::Plugin dependencies"
+          apt install -y libasound2-dev libfdk-aac-dev libfontconfig-dev libfreetype6-dev libjack-jackd2-dev libpulse-dev libsndio-dev libspeexdsp-dev libudev-dev libv4l-dev libva-dev libvlc-dev libdrm-dev
+      - name: Build OBS Studio
+        shell: bash
+        # working-directory: src
+        run: |
+          # 首行不给看,要看指令的自己点展开
+          echo "::group::OneKey Build OBS Studio"
+          chmod +x CI/build-linux.sh
+          CI/build-linux.sh --verbose --skip-dependency-checks --package --build-dir "/opt/apps/com.obsproject.studio"
