@@ -1,4 +1,4 @@
-name: CI Test Build
+name: OBS Studio For Deepin
 on: 
   workflow_dispatch:
     inputs:
