@@ -64,28 +64,8 @@ jobs:
           #----------------------------
           echo "::group::APT Detect"
           apt update
+          apt install -y sudo
           apt dist-upgrade -y
-      - 
-        name: Preparing Dependencies in APT
-        shell: bash
-        run: |
-          # 首行不给看,要看指令的自己点展开
-          echo "::group::Build system dependencies"
-          apt install -y cmake ninja-build pkg-config clang clang-format build-essential curl ccache git
-          echo "::group::OBS dependencies（core）"
-          apt install -y libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libswresample-dev libswscale-dev libx264-dev libcurl4-openssl-dev libmbedtls-dev libgl1-mesa-dev libjansson-dev libluajit-5.1-dev python3-dev libx11-dev libxcb-randr0-dev libxcb-shm0-dev libxcb-xinerama0-dev libxcb-composite0-dev libxcomposite-dev libxinerama-dev libxcb1-dev libx11-xcb-dev libxcb-xfixes0-dev swig libcmocka-dev libxss-dev libglvnd-dev libgles2-mesa libgles2-mesa-dev libwayland-dev librist-dev libsrt-openssl-dev libpci-dev
-          echo "::group::OBS dependencies（Qt6 UI）"
-          apt install -y qt6-base-dev qt6-base-private-dev libqt6svg6-dev qt6-wayland qt6-image-formats-plugins
-          echo "::group::Plugin dependencies"
-          apt install -y libasound2-dev libfdk-aac-dev libfontconfig-dev libfreetype6-dev libjack-jackd2-dev libpulse-dev libsndio-dev libspeexdsp-dev libudev-dev libv4l-dev libva-dev libvlc-dev libdrm-dev
-      -
-        name: Download CEF
-        working-directory: 'obs-studio'
-        shell: bash
-        run: |
-          CHECKOUT_DIR="$(git rev-parse --show-toplevel)"
-          source "${CHECKOUT_DIR}/CI/linux/01_install_dependencies.sh"
-          install_cef 5060
       - 
         name: Build OBS Studio
         shell: bash
@@ -94,7 +74,7 @@ jobs:
           # 首行不给看,要看指令的自己点展开
           echo "::group::OneKey Build OBS Studio"
           chmod +x CI/build-linux.sh
-          CI/build-linux.sh --verbose --skip-dependency-checks --package --disable-pipewire
+          CI/build-linux.sh --verbose --package --disable-pipewire
       - 
          name: Manual Debug Service
          uses: mxschmitt/action-tmate@v3
