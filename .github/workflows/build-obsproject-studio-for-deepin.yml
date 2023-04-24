@@ -89,3 +89,4 @@ jobs:
          name: Manual Debug Service is ${{ toString(inputs.tmate-enabled) }}
          uses: mxschmitt/action-tmate@v3
          if: ${{ github.event_name == 'workflow_dispatch' && inputs.tmate-enabled }}
+         timeout-minutes: 30
