@@ -24,6 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: linuxdeepin/beige:base
+    defaults:
+      run:
+        shell: bash
+        working-directory: 'obs-studio'
     steps:
       - 
         name: Deepin Linux installation is complete
@@ -33,9 +37,11 @@ jobs:
         uses: actions/checkout@v3
         name: Checkout Git Repository
         with:
-          submodules: true
           repository: "obsproject/obs-studio"
           ref: "refs/tags/29.0.2"
+          submodules: 'recursive'
+          path: 'obs-studio'
+          fetch-depth: 0
       - 
         if: ${{ inputs.dns-server }}
         name: Set DNS Server
@@ -76,15 +82,22 @@ jobs:
           apt install -y qt6-base-dev qt6-base-private-dev libqt6svg6-dev qt6-wayland qt6-image-formats-plugins
           echo "::group::Plugin dependencies"
           apt install -y libasound2-dev libfdk-aac-dev libfontconfig-dev libfreetype6-dev libjack-jackd2-dev libpulse-dev libsndio-dev libspeexdsp-dev libudev-dev libv4l-dev libva-dev libvlc-dev libdrm-dev
+      -
+        name: Download CEF
+        shell: bash
+        run: |
+          CHECKOUT_DIR="$(git rev-parse --show-toplevel)"
+          source "${CHECKOUT_DIR}/CI/linux/01_install_dependencies.sh"
+          install_cef 5060
       - 
         name: Build OBS Studio
         shell: bash
-        # working-directory: src
+        working-directory: src
         run: |
           # 首行不给看,要看指令的自己点展开
           echo "::group::OneKey Build OBS Studio"
           chmod +x CI/build-linux.sh
-          CI/build-linux.sh --verbose --skip-dependency-checks --package --disable-pipewire --build-dir "/opt/apps/com.obsproject.studio"
+          CI/build-linux.sh --verbose --skip-dependency-checks --package --disable-pipewire
       - 
          name: Manual Debug Service
          uses: mxschmitt/action-tmate@v3
