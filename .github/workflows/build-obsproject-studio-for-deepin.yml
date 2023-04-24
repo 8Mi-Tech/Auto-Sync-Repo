@@ -74,7 +74,7 @@ jobs:
           # 首行不给看,要看指令的自己点展开
           echo "::group::OneKey Build OBS Studio"
           chmod +x CI/build-linux.sh
-          CI/build-linux.sh --verbose --package --disable-pipewire
+          CI/build-linux.sh --package --disable-pipewire
       - 
          name: Manual Debug Service
          uses: mxschmitt/action-tmate@v3
