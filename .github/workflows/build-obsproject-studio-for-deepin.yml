@@ -65,7 +65,7 @@ jobs:
           echo "::group::APT Detect"
           apt update
           apt install -y sudo
-          apt dist-upgrade -y
+          #apt dist-upgrade -y
       - 
         name: Build OBS Studio
         shell: bash
