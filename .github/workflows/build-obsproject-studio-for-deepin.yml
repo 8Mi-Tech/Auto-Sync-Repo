@@ -14,6 +14,11 @@ on:
         description: 'DNS服务器'
         required: false
         type: string
+      tmate-enabled:
+        type: boolean
+        description: '构建完毕后启用tmate以手动测试'
+        required: false
+        default: false
 jobs:
   deepin-beige:
     runs-on: ubuntu-latest
@@ -80,3 +85,7 @@ jobs:
           echo "::group::OneKey Build OBS Studio"
           chmod +x CI/build-linux.sh
           CI/build-linux.sh --verbose --skip-dependency-checks --package --build-dir "/opt/apps/com.obsproject.studio"
+      - 
+         name: Manual Debug Service is ${{ toString(inputs.tmate-enabled) }}
+         uses: mxschmitt/action-tmate@v3
+         if: ${{ github.event_name == 'workflow_dispatch' && inputs.tmate-enabled }}
