@@ -86,7 +86,7 @@ jobs:
           chmod +x CI/build-linux.sh
           CI/build-linux.sh --verbose --skip-dependency-checks --package --build-dir "/opt/apps/com.obsproject.studio"
       - 
-         name: Manual Debug Service is ${{ toString(inputs.tmate-enabled) }}
+         name: Manual Debug Service
          uses: mxschmitt/action-tmate@v3
          if: ${{ github.event_name == 'workflow_dispatch' && inputs.tmate-enabled }}
          timeout-minutes: 30
