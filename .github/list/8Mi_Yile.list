@@ -14,11 +14,6 @@
       "repo": "OpenWRT-LuCI",
       "branch": "master",
       "from_org_user": "8MiYile"
-    },
-    {
-      "repo": "draggable-resource-packs-fabric",
-      "branch": "master",
-      "from_org_user": "8MiYile"
     }
   ]
 }
