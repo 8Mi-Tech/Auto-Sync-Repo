@@ -84,7 +84,7 @@ jobs:
           # 首行不给看,要看指令的自己点展开
           echo "::group::OneKey Build OBS Studio"
           chmod +x CI/build-linux.sh
-          CI/build-linux.sh --verbose --skip-dependency-checks --package --build-dir "/opt/apps/com.obsproject.studio"
+          CI/build-linux.sh --verbose --skip-dependency-checks --package --disable-pipewire --build-dir "/opt/apps/com.obsproject.studio"
       - 
          name: Manual Debug Service
          uses: mxschmitt/action-tmate@v3
