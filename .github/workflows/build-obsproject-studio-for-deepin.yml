@@ -24,10 +24,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: linuxdeepin/beige:base
-    defaults:
-      run:
-        shell: bash
-        working-directory: 'obs-studio'
     steps:
       - 
         name: Deepin Linux installation is complete
@@ -84,6 +80,7 @@ jobs:
           apt install -y libasound2-dev libfdk-aac-dev libfontconfig-dev libfreetype6-dev libjack-jackd2-dev libpulse-dev libsndio-dev libspeexdsp-dev libudev-dev libv4l-dev libva-dev libvlc-dev libdrm-dev
       -
         name: Download CEF
+        working-directory: 'obs-studio'
         shell: bash
         run: |
           CHECKOUT_DIR="$(git rev-parse --show-toplevel)"
@@ -92,7 +89,7 @@ jobs:
       - 
         name: Build OBS Studio
         shell: bash
-        working-directory: src
+        working-directory: 'obs-studio'
         run: |
           # 首行不给看,要看指令的自己点展开
           echo "::group::OneKey Build OBS Studio"
